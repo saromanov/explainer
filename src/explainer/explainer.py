@@ -12,3 +12,6 @@ def connect(engine):
     if engine is None:
         raise Exception('Engine is not defined')
     return engine.connect()
+
+def explain(session, query):
+    return session.execute('EXPLAIN {0}'.format(query))
