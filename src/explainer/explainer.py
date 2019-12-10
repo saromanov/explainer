@@ -14,7 +14,11 @@ def connect(engine):
     return engine.connect()
 
 def explain(session, query):
-    return session.execute('EXPLAIN {0}'.format(query))
+    return session.execute('EXPLAIN {0}'.format(query)).fetchall()
 
 def analyze(session, query):
-    return session.execute('ANALYZE {0}'.format(query))
+    return session.execute('ANALYZE {0}'.format(query)).fetchall()
+
+def parse_explain(value):
+    for v in value:
+        print(v)
