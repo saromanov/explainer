@@ -15,3 +15,6 @@ def connect(engine):
 
 def explain(session, query):
     return session.execute('EXPLAIN {0}'.format(query))
+
+def analyze(session, query):
+    return session.execute('ANALYZE {0}'.format(query))
