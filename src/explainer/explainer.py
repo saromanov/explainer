@@ -1,10 +1,11 @@
-import sqlalchemy as db
 from exceptions import CreateEngineException, NotCompletedOutputException
 from task import Task
+from db import create_engine, connect
 
 
 class Explainer:
-    def __init__(self):
+    def __init__(self, connect_path):
+        self._session = connect(create_engine(connect_path))
         self._tasks = []
     
     def add_task(self, query):
@@ -18,16 +19,3 @@ class Explainer:
             data = f.readlines()
         for x in data:
             self._tasks.append(Task(x)) 
-
-def create_engine(path):
-    if path is None:
-        raise CreateEngineException('path for engine is empty')
-    return db.create_engine(path)
-
-def connect(engine):
-    if engine is None:
-        raise Exception('Engine is not defined')
-    return engine.connect()
-
-def explain(session, query):
-    return session.execute('EXPLAIN ANALYZE {0}'.format(query)).fetchall()
