@@ -1,7 +1,8 @@
 class Task:
-    ''' defines single execution of the analyze command
+    ''' defines query as a task
     '''
-    def __init__(self):
+    def __init__(self, query, times=10):
+        self._query = query
         self._rows = 0
-        self._execution_time = ''
+        self._times = times
     
