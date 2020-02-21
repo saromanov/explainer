@@ -8,7 +8,16 @@ class Explainer:
         self._tasks = []
     
     def add_task(self, query):
-        self._tasks.append(task(query))
+        self._tasks.append(Task(query))
+    
+    def from_file(self, path):
+        ''' Getting queries from the file
+        At the each line should be new query
+        '''
+        with open(path) as f:
+            data = f.readlines()
+        for x in data:
+            self._tasks.append(Task(x)) 
 
 def create_engine(path):
     if path is None:
