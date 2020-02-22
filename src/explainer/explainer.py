@@ -9,6 +9,8 @@ class Explainer:
         self._tasks = []
     
     def add_task(self, query):
+        ''' adding new task(query)
+        '''
         self._tasks.append(Task(query))
     
     def from_file(self, path):
@@ -19,3 +21,9 @@ class Explainer:
             data = f.readlines()
         for x in data:
             self._tasks.append(Task(x)) 
+    
+    def apply(self):
+        ''' applying of tasks
+        '''
+        if len(self._tasks) == 0:
+            raise Exception('Tasks is not defined')
