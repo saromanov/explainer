@@ -3,3 +3,6 @@ class CreateEngineException(Exception):
 
 class NotCompletedOutputException(Exception):
     pass
+
+class NoTasksException(Exception):
+    pass

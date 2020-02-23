@@ -1,7 +1,7 @@
 import pandas as pd
 from parse import Analyzer
 
-class Metrcis:
+class Metrics:
     ''' getting analyzer objects
         for cobstruct metrics output
     '''
