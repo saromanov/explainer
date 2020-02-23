@@ -9,9 +9,9 @@ class Task:
         self._rows = 0
         self._times = times
     
-    def run(self):
+    def run(self, session):
         for x in range(self._times):
-            parse_explain(explain(self._query))
+            parse_explain(explain(session, self._query))
     
     
     

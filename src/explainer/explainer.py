@@ -28,4 +28,4 @@ class Explainer:
         if len(self._tasks) == 0:
             raise Exception('Tasks is not defined')
         for t in self._tasks:
-            t.run()
+            t.run(self._session)
