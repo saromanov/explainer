@@ -1,4 +1,4 @@
-from parse import parse_explaing
+from parse import parse_explain
 from db import explain
 
 class Task:
@@ -11,7 +11,7 @@ class Task:
     
     def run(self):
         for x in range(self._times):
-            parse_explain(explain(query))
+            parse_explain(explain(self._query))
     
     
     
