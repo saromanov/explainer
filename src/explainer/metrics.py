@@ -15,13 +15,16 @@ class Metrics:
         ''' converting of list of raw metrics
         to pandas data frame
         '''
-        result = {}
-        for x in data:
-            names = x.report_names()
-            report = x.report()
-            for r in names:
-                if r not in result:
-                    result[r] = [report[r]]
-                else:
-                    result[r].append(result[r])
-        return pd.DataFrame(result)
+        frames = []
+        for tasks in data:
+            result = {}
+            for t in tasks:
+                names = t.report_names()
+                report = t.report()
+                for r in names:
+                    if r not in result:
+                        result[r] = [report[r]]
+                    else:
+                        result[r].append(result[r])
+            frames.append(pd.DataFrame(result))
+        return frames
