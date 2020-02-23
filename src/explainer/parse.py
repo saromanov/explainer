@@ -8,6 +8,9 @@ class Analyzer:
     
     def report(self):
         return {'planning_time': self.planning_time, 'execution_time': self.execution_time}
+    
+    def report_names(self):
+        return ['planning_time', 'execution_time']
 
 def parse_explain(value):
     an = Analyzer()
