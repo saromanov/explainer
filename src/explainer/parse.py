@@ -19,4 +19,4 @@ def parse_explain(value):
             an.execution_time = get_time(data)
         if check_start(data, 'Sort Key'):
             an.sort_names = sort_names(data)
-        print(data)
+    return an
