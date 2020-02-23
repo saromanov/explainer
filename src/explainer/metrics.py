@@ -1,22 +1,20 @@
+from typing import List
 import pandas as pd
 from parse import Analyzer
+
+RawMetrics = List[Analyzer]
 
 class Metrics:
     ''' getting analyzer objects
         for cobstruct metrics output
     '''
-    def __init__(self, analyzers):
-        if self._validate_input(analyzer):
-            raise Execption('Metrics: unable to validate abalyzer objects')
+    def __init__(self, raw_metrics:RawMetrics):
+        self._df = self._to_data_frame(raw_metrics)
     
-        self._df = self._to_data_frame(analyzers)
-    
-    def _validate_input(self, data):
-        ''' validating of the analyzers objects
+    def _to_data_frame(self, data:RawMetrics):
+        ''' converting of list of raw metrics
+        to pandas data frame
         '''
-        return len(filter(lambda x: not isinstance(x, Analyzer), data)) > 0
-    
-    def _to_data_frame(self, data):
         result = {}
         for x in data:
             names = x.report_names()
