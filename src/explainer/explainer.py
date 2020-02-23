@@ -1,3 +1,4 @@
+import pandas as pd
 from exceptions import CreateEngineException, NotCompletedOutputException
 from task import Task
 from db import create_engine, connect
@@ -28,4 +29,4 @@ class Explainer:
         if len(self._tasks) == 0:
             raise Exception('Tasks is not defined')
         for t in self._tasks:
-            t.run(self._session)
+            metrics = t.run(self._session)

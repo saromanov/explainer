@@ -10,8 +10,7 @@ class Task:
         self._times = times
     
     def run(self, session):
-        for x in range(self._times):
-            parse_explain(explain(session, self._query))
+        return [parse_explain(explain(session, self._query)) for x in range(self._times)]
     
     
     

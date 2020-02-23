@@ -5,6 +5,9 @@ class Analyzer:
         self.execution_time = ''
         self._sort_names = []
         self._tasks = []
+    
+    def report(self):
+        return {'planning_time': self.planning_time, 'execution_time': self.execution_time}
 
 def parse_explain(value):
     an = Analyzer()
