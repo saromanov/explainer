@@ -25,6 +25,6 @@ class Metrics:
                     if r not in result:
                         result[r] = [report[r]]
                     else:
-                        result[r].append(result[r])
+                        result[r].append(report[r])
             frames.append(pd.DataFrame(result))
         return frames
