@@ -21,7 +21,7 @@ def parse_explain(value) -> Analyzer:
     an = Analyzer()
     check_start = lambda x, y: x.startswith(y)
     sort_names = lambda x: x.split(',')
-    get_time = lambda x: x.split(':')[1].split('ms')[0].rstrip()
+    get_time = lambda x: float(x.split(':')[1].split('ms')[0].rstrip())
     for v in value:
         data = v[0]
         if check_start(data, 'Planning'):
