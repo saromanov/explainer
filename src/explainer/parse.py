@@ -1,11 +1,15 @@
 from typing import List, Dict
 
 class Analyzer:
-    def __init__(self):
+    def __init__(self, title):
         self.planning_time = ''
         self.execution_time = ''
         self._sort_names = []
         self._tasks = []
+        self._title = title
+    
+    def title_name(self):
+        return self._title
     
     def report(self) -> Dict[str, str]:
         return {'planning_time': self.planning_time, 'execution_time': self.execution_time}
