@@ -9,7 +9,7 @@ class Metrics:
         for cobstruct metrics output
     '''
     def __init__(self, raw_metrics:RawMetrics):
-        self._df = self._to_data_frame(raw_metrics)
+        self._dframes = self._to_data_frame(raw_metrics)
     
     def _to_data_frame(self, data:RawMetrics):
         ''' converting of list of raw metrics
@@ -28,3 +28,9 @@ class Metrics:
                         result[r].append(report[r])
             frames.append(pd.DataFrame(result))
         return frames
+    
+    def mean(self, name):
+        result = {}
+        for df in self._dframes:
+            result[df.name] = df[name].mean())
+        return result
