@@ -32,5 +32,5 @@ class Metrics:
     def mean(self, name):
         result = {}
         for df in self._dframes:
-            result[df.name] = df[name].mean())
+            result[df.name] = df[name].mean(axis=0)
         return result
