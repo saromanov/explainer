@@ -37,3 +37,4 @@ class Explainer:
             raise NoTasksException('Tasks is not defined')
         m = Metrics([t.run(self._session) for t in self._tasks])
         print(m.median('planning_time'), m.std('planning_time'))
+        print(m['priority10'])

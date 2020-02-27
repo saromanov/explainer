@@ -16,7 +16,7 @@ class Metrics:
         to pandas data frame and dictionary
         '''
         frames = []
-        data = {}
+        data_resp = {}
         for tasks in data:
             result = {}
             name = 'default'
@@ -32,8 +32,8 @@ class Metrics:
             df = pd.DataFrame(result)
             df.name = name
             frames.append(df)
-            data[name] = df
-        return frames, data
+            data_resp[name] = df
+        return frames, data_resp
     
     def __getitem__(self, name):
         self._data[name]
@@ -70,5 +70,5 @@ class Metrics:
         return self._apply_stat(name, 'std')
 
 
-def from_cxv(path) -> pd.DataFrame:
+def from_csv(path) -> pd.DataFrame:
     return pd.read_csv(path)
