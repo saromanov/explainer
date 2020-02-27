@@ -2,7 +2,7 @@ from exceptions import CreateEngineException, NotCompletedOutputException
 from task import Task
 from db import create_engine, connect
 from metrics import Metrics, from_csv
-
+from plot import show
 
 class Explainer:
     def __init__(self, connect_path):
@@ -28,7 +28,7 @@ class Explainer:
         reading metrics from the file
         '''
         df = from_csv(path)
-        
+
     
     def apply(self):
         ''' applying of tasks

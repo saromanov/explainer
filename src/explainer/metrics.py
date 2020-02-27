@@ -9,13 +9,14 @@ class Metrics:
         for cobstruct metrics output
     '''
     def __init__(self, raw_metrics:RawMetrics):
-        self._dframes = self._to_data_frame(raw_metrics)
+        self._dframes, self._data = self._to_data_frame_and_dict(raw_metrics)
     
-    def _to_data_frame(self, data:RawMetrics):
+    def _to_data_frame_and_dict(self, data:RawMetrics):
         ''' converting of list of raw metrics
-        to pandas data frame
+        to pandas data frame and dictionary
         '''
         frames = []
+        data = {}
         for tasks in data:
             result = {}
             name = 'default'
@@ -31,7 +32,11 @@ class Metrics:
             df = pd.DataFrame(result)
             df.name = name
             frames.append(df)
-        return frames
+            data[name] = df
+        return frames, data
+    
+    def __getitem__(self, name):
+        self._data[name]
     
     def stat(self, name):
         '''
