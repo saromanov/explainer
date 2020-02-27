@@ -42,7 +42,7 @@ class Metrics:
     def _apply_stat(self, name, func):
         result = {}
         for df in self._dframes:
-            result[df.name] = df[name].apply(getattr(df, func))
+            result[df.name] = getattr(df[name], func)()
         return result
     
     def median(self, name):
@@ -51,5 +51,5 @@ class Metrics:
     def mean(self, name):
         return self._apply_stat(name, 'mean')
     
-    def mean(self, name):
+    def std(self, name):
         return self._apply_stat(name, 'std')
