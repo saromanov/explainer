@@ -10,10 +10,10 @@ class Explainer:
         self._session = connect(create_engine(connect_path))
         self._tasks = []
     
-    def add_task(self, query):
+    def add_task(self, title, query):
         ''' adding new task(query)
         '''
-        self._tasks.append(Task(query))
+        self._tasks.append(Task(title, query))
     
     def from_file(self, path):
         ''' Getting queries from the file

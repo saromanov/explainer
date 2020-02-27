@@ -17,12 +17,12 @@ class Analyzer:
     def report_names(self) -> List[str]:
         return ['planning_time', 'execution_time']
 
-def parse_explain(value) -> Analyzer:
+def parse_explain(title, value) -> Analyzer:
     ''' 
     returns time on ms
     need to thinking about converting to specific time
      '''
-    an = Analyzer()
+    an = Analyzer(title)
     check_start = lambda x, y: x.startswith(y)
     sort_names = lambda x: x.split(',')
     get_time = lambda x: float(x.split(':')[1].split('ms')[0].rstrip())
