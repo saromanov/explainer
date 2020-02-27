@@ -40,16 +40,26 @@ class Metrics:
         return {'mean': self.mean(name), 'median': self.median(name)}
     
     def _apply_stat(self, name, func):
+        '''
+        general method for applying stats methods
+        from pandas data frame
+        '''
         result = {}
         for df in self._dframes:
             result[df.name] = getattr(df[name], func)()
         return result
     
     def median(self, name):
+        ''' return median value from results
+        '''
         return self._apply_stat(name, 'median')
     
     def mean(self, name):
+        ''' return mean value from results
+        '''
         return self._apply_stat(name, 'mean')
     
     def std(self, name):
+        ''' return std value from results
+        '''
         return self._apply_stat(name, 'std')
