@@ -18,15 +18,19 @@ class Metrics:
         frames = []
         for tasks in data:
             result = {}
+            name = 'default'
             for t in tasks:
                 names = t.report_names()
                 report = t.report()
+                name = t.title_name()
                 for r in names:
                     if r not in result:
                         result[r] = [report[r]]
                     else:
                         result[r].append(report[r])
-            frames.append(pd.DataFrame(result))
+            df = pd.DataFrame(result)
+            df.name = name
+            frames.append(df)
         return frames
     
     def mean(self, name):
