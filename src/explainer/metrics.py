@@ -36,7 +36,7 @@ class Metrics:
         return frames, data_resp
     
     def __getitem__(self, name):
-        self._data[name]
+       return self._data[name]
     
     def stat(self, name):
         '''
