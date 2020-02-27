@@ -33,8 +33,23 @@ class Metrics:
             frames.append(df)
         return frames
     
-    def mean(self, name):
+    def stat(self, name):
+        '''
+        return of the basic statistics about execution
+        '''
+        return {'mean': self.mean(name), 'median': self.median(name)}
+    
+    def _apply_stat(self, name, func):
         result = {}
         for df in self._dframes:
-            result[df.name] = df[name].mean()
+            result[df.name] = df[name].apply(getattr(df, func))
         return result
+    
+    def median(self, name):
+        return self._apply_stat(name, 'median')
+    
+    def mean(self, name):
+        return self._apply_stat(name, 'mean')
+    
+    def mean(self, name):
+        return self._apply_stat(name, 'std')

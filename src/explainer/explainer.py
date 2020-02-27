@@ -30,4 +30,4 @@ class Explainer:
         if len(self._tasks) == 0:
             raise NoTasksException('Tasks is not defined')
         m = Metrics([t.run(self._session) for t in self._tasks])
-        print(m.mean('planning_time'))
+        print(m.median('planning_time'), m.std('planning_time'))
