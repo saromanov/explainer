@@ -63,3 +63,7 @@ class Metrics:
         ''' return std value from results
         '''
         return self._apply_stat(name, 'std')
+
+
+def from_cxv(path) -> pd.DataFrame:
+    return pd.read_csv(path)

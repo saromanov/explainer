@@ -1,8 +1,7 @@
-import pandas as pd
 from exceptions import CreateEngineException, NotCompletedOutputException
 from task import Task
 from db import create_engine, connect
-from metrics import Metrics
+from metrics import Metrics, from_csv
 
 
 class Explainer:
@@ -22,7 +21,14 @@ class Explainer:
         with open(path) as f:
             data = f.readlines()
         for x in data:
-            self._tasks.append(Task(x)) 
+            self._tasks.append(Task(x))
+    
+    def read_metrics(self, path):
+        '''
+        reading metrics from the file
+        '''
+        df = from_csv(path)
+        
     
     def apply(self):
         ''' applying of tasks
