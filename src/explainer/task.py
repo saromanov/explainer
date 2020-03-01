@@ -15,13 +15,16 @@ class Task:
     
     def title(self) -> str:
         return self._title
+    
+    def rows_count(self):
+        return self._rows_count
 
     def __str__(self) -> str:
         return 'Title: {0}\nQuery: {1}\n Times:{2}'.format(self._title, self._query, self._times)
     
     def run(self, session) -> List[Analyzer]:
         if self._table:
-            rows_count(session, self._table)
+            self._rows_count = rows_count(session, self._table)
         return [parse_explain(self._title, explain(session, self._query)) for x in range(self._times)]
     
     

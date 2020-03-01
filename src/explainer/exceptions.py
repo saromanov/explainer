@@ -6,3 +6,6 @@ class NotCompletedOutputException(Exception):
 
 class NoTasksException(Exception):
     pass
+
+class NoMetricsException(Exception):
+    pass
