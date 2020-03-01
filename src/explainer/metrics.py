@@ -52,10 +52,10 @@ class Metrics:
         general method for applying stats methods
         from pandas data frame
         '''
-        result = {}
         task = kwargs.get('task')
         if task: 
-            result[task] = getattr(df[task], func)()
+            return {task: getattr(self._data[task], func)()}
+        result = {}
         for df in self._dframes:
             result[df.name] = getattr(df[name], func)()
         return result
