@@ -28,6 +28,7 @@ def parse_explain(title, value) -> Analyzer:
     get_time = lambda x: float(x.split(':')[1].split('ms')[0].rstrip())
     for v in value:
         data = v[0]
+        print(data)
         if check_start(data, 'Planning'):
             an.planning_time = get_time(data)
         if check_start(data, 'Execution'):
