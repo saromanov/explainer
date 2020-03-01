@@ -37,6 +37,8 @@ class Explainer:
             raise NoTasksException('Tasks is not defined')
         m = Metrics([t.run(self._session) for t in self._tasks])
         print(m.median('planning_time'), m.std('planning_time'))
-        data = m['priority10']
-        if kwargs.get('show_plot'):
-            show(data['planning_time'], data['execution_time'])
+        tasks = kwargs.get('tasks') if 'tasks' in kwargs else []
+        for task in tasks:
+            data = m[task]
+            if kwargs.get('show_plot'):
+                show(data['planning_time'], data['execution_time'])
