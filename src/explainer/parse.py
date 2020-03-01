@@ -8,7 +8,7 @@ class Analyzer:
         self._tasks = []
         self._title = title
     
-    def title_name(self):
+    def title_name(self) -> str:
         return self._title
     
     def report(self) -> Dict[str, str]:

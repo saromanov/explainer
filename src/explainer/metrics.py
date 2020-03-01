@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 import pandas as pd
 from parse import Analyzer
 
@@ -38,10 +38,10 @@ class Metrics:
     def __getitem__(self, name):
        return self._data[name]
     
-    def __str__(self):
+    def __str__(self) -> str:
         return 'Number of tasks: {0}'.format(len(self._data))
     
-    def stat(self, name):
+    def stat(self, name) -> Dict[str, float]:
         '''
         return of the basic statistics about execution
         '''
@@ -60,17 +60,17 @@ class Metrics:
             result[df.name] = getattr(df[name], func)()
         return result
     
-    def median(self, name, *args, **kwargs):
+    def median(self, name, *args, **kwargs) -> float:
         ''' return median value from results
         '''
         return self._apply_stat(name, 'median', *args, **kwargs)
     
-    def mean(self, name, *args, **kwargs):
+    def mean(self, name, *args, **kwargs) -> float:
         ''' return mean value from results
         '''
         return self._apply_stat(name, 'mean',  *args, **kwargs)
     
-    def std(self, name, *args, **kwargs):
+    def std(self, name, *args, **kwargs) -> float:
         ''' return std value from results
         '''
         return self._apply_stat(name, 'std',  *args, **kwargs)

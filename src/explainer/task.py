@@ -1,5 +1,7 @@
+from typing import List
 from parse import parse_explain
 from db import explain, rows_count
+from parse import Analyzer
 
 class Task:
     ''' defines query as a task
@@ -11,19 +13,13 @@ class Task:
         self._times = kwargs.get('times', 10)
         self._table = kwargs.get('table')
     
-    def title(self):
+    def title(self) -> str:
         return self._title
-    
-    def _get_rows_count(self, table_name):
-        '''
-        getting count of rows from the table
-        '''
-        return 
 
-    def __str__(self):
+    def __str__(self) -> str:
         return 'Title: {0}\nQuery: {1}\n Times:{2}'.format(self._title, self._query, self._times)
     
-    def run(self, session):
+    def run(self, session) -> List[Analyzer]:
         if self._table:
             rows_count(session, self._table)
         return [parse_explain(self._title, explain(session, self._query)) for x in range(self._times)]
