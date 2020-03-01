@@ -10,6 +10,9 @@ class Task:
         self._rows = 0
         self._times = times
     
+    def title(self):
+        return self._title
+
     def __str__(self):
         return 'Title: {0}\nQuery: {1}\n Times:{2}'.format(self._title, self._query, self._times)
     

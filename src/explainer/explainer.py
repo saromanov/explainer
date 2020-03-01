@@ -35,6 +35,9 @@ class Explainer:
         '''
         if len(self._tasks) == 0:
             raise NoTasksException('Tasks is not defined')
+        print('Loaded tasks: ')
+        for t in self._tasks:
+            print(t.title())
         m = Metrics([t.run(self._session) for t in self._tasks])
         print(m.median('planning_time',task='priority10'), m.std('planning_time'))
         tasks = kwargs.get('tasks') if 'tasks' in kwargs else []
