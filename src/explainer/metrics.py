@@ -38,36 +38,42 @@ class Metrics:
     def __getitem__(self, name):
        return self._data[name]
     
+    def __str__(self):
+        return 'Number of tasks: {0}'.format(len(self._data))
+    
     def stat(self, name):
         '''
         return of the basic statistics about execution
         '''
         return {'mean': self.mean(name), 'median': self.median(name)}
     
-    def _apply_stat(self, name, func):
+    def _apply_stat(self, name, func, *args, **kwargs):
         '''
         general method for applying stats methods
         from pandas data frame
         '''
         result = {}
+        task = kwargs.get('task')
+        if task: 
+            result[task] = getattr(df[task], func)()
         for df in self._dframes:
             result[df.name] = getattr(df[name], func)()
         return result
     
-    def median(self, name):
+    def median(self, name, *args, **kwargs):
         ''' return median value from results
         '''
-        return self._apply_stat(name, 'median')
+        return self._apply_stat(name, 'median', *args, **kwargs)
     
-    def mean(self, name):
+    def mean(self, name, *args, **kwargs):
         ''' return mean value from results
         '''
-        return self._apply_stat(name, 'mean')
+        return self._apply_stat(name, 'mean',  *args, **kwargs)
     
-    def std(self, name):
+    def std(self, name, *args, **kwargs):
         ''' return std value from results
         '''
-        return self._apply_stat(name, 'std')
+        return self._apply_stat(name, 'std',  *args, **kwargs)
 
 
 def from_csv(path) -> pd.DataFrame:
