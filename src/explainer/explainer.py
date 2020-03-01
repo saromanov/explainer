@@ -30,7 +30,7 @@ class Explainer:
         df = from_csv(path)
 
     
-    def apply(self):
+    def apply(self, *args, **kwargs):
         ''' applying of tasks
         '''
         if len(self._tasks) == 0:
@@ -38,4 +38,5 @@ class Explainer:
         m = Metrics([t.run(self._session) for t in self._tasks])
         print(m.median('planning_time'), m.std('planning_time'))
         data = m['priority10']
-        show(data['planning_time'], data['execution_time'])
+        if kwargs.get('show_plot'):
+            show(data['planning_time'], data['execution_time'])
