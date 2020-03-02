@@ -55,10 +55,8 @@ class Metrics:
         task = kwargs.get('task')
         if task: 
             return {task: getattr(self._data[task], func)()}
-        result = {}
-        for df in self._dframes:
-            result[df.name] = getattr(df[name], func)()
-        return result
+    
+        return {df.name: getattr(df[name], func)() for df in self._dframes}
     
     def median(self, name, *args, **kwargs) -> float:
         ''' return median value from results
