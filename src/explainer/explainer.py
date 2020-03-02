@@ -8,8 +8,9 @@ class Explainer:
     def __init__(self, connect_path):
         self._session = connect(create_engine(connect_path))
         self._tasks = []
+        self._loaded_tasks = []
     
-    def add_task(self, title, query, *args, **kwargs):
+    def add_task(self, parent_title, title, query, *args, **kwargs):
         ''' adding new task(query)
         '''
         self._tasks.append(Task(title, query, *args, **kwargs))
@@ -38,7 +39,6 @@ class Explainer:
             raise NoMetricsException('Metrics is not loaded')
 
 
-    
     def apply(self, *args, **kwargs):
         ''' applying of tasks
             optional:

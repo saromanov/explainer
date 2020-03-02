@@ -6,8 +6,9 @@ from parse import Analyzer
 class Task:
     ''' defines query as a task
     '''
-    def __init__(self, title, query, *args, **kwargs):
+    def __init__(self, parent_title, title, query, *args, **kwargs):
         self._query = query
+        self._parent_title = parent_title
         self._title = title
         self._rows_count = kwargs.get('rows_count', 0)
         self._times = kwargs.get('times', 10)
@@ -15,6 +16,9 @@ class Task:
     
     def title(self) -> str:
         return self._title
+    
+    def parent_title(self) -> str:
+        return self._parent_title
     
     def rows_count(self):
         return self._rows_count
