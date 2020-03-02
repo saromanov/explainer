@@ -23,9 +23,10 @@ class Explainer:
         for x in data:
             self._tasks.append(Task(x))
     
-    def read_metrics(self, path):
+    def load_task(self, path):
         '''
-        reading metrics from the file
+        loading of saved tasks. These tasks
+        can be loaded for compare with other tasks
         '''
         df = from_csv(path)
     
@@ -40,6 +41,9 @@ class Explainer:
     
     def apply(self, *args, **kwargs):
         ''' applying of tasks
+            optional:
+                show_plot - showing of the plot via matplotlib
+                tasks - getting plot for list of tasks
         '''
         if len(self._tasks) == 0:
             raise NoTasksException('Tasks is not defined')
