@@ -1,4 +1,5 @@
 import os
+import pickle
 from metrics import Metrics
 from tasks import Task 
 
@@ -20,6 +21,11 @@ class Dump:
             except PermissionError:
                 raise Exception('access denied to {0}'.format(path))
             self._mkdir(path)
+        result_path = os.path.join(path, self._get_dump_file_name(self._task))
+        title = self._task.title()
+        metrics = self._metrics[title]
+        data = {k:v for m in metrics}
+        pickle.dump(data, open(result_path, 'wb'))
     
     def _mkdir(self, path:str):
         try:
@@ -30,7 +36,7 @@ class Dump:
             else:
                 raise
     
-    def get_dump_file_name(self, task:Task):
+    def _get_dump_file_name(self, task:Task):
         ''' return dump file name based on parent title
             and title from the task
         '''
