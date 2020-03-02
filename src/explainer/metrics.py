@@ -1,14 +1,16 @@
 from typing import List, Dict
 import pandas as pd
 from parse import Analyzer
+from tasks import Task
 
 RawMetrics = List[Analyzer]
+Tasks = List[Task]
 
 class Metrics:
     ''' getting analyzer objects
         for cobstruct metrics output
     '''
-    def __init__(self, raw_metrics:RawMetrics):
+    def __init__(self, session, raw_metrics:RawMetrics):
         self._dframes, self._data = self._to_data_frame_and_dict(raw_metrics)
     
     def _to_data_frame_and_dict(self, data:RawMetrics):
