@@ -10,9 +10,18 @@ class Dump:
     def save(self, path:str):
         if not path:
             raise Exception('path to Dump tasks is not defined')
-        mkdir(path)
+        if not os.path.exists(path):
+            if os.path.isdir(path):
+                return
+            else:
+                raise Exception('{0} is not dir'.format(path))
+            try:
+                os.chmod(path)
+            except PermissionError:
+                raise Exception('access denied to {0}'.format(path))
+            self._mkdir(path)
     
-    def mkdir(self, path:str):
+    def _mkdir(self, path:str):
         try:
             os.mkdir(path)
         except OSError as e:
