@@ -9,7 +9,7 @@ class Task:
     def __init__(self, title, query, *args, **kwargs):
         self._query = query
         self._title = title
-        self._rows_count = kwargs.get('rows_count')
+        self._rows_count = kwargs.get('rows_count', 0)
         self._times = kwargs.get('times', 10)
         self._table = kwargs.get('table')
     
