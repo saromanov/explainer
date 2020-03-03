@@ -14,7 +14,7 @@ class Explainer:
     def add_task(self, parent_title, title, query, *args, **kwargs):
         ''' adding new task(query)
         '''
-        self._tasks.append(Task(title, query, *args, **kwargs))
+        self._tasks.append(Task(parent_title, title, query, *args, **kwargs))
     
     def from_file(self, path):
         ''' Getting queries from the file
@@ -41,7 +41,7 @@ class Explainer:
         if len(self._tasks) == 0:
             raise NoTasksException('Tasks is not defined')
         for t in self._tasks:
-            metrics = self._metrics[t]
+            metrics = self._metrics[t.title()]
             d = Dump(t, metrics)
             d.save(path)
 

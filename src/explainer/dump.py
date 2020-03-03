@@ -1,7 +1,7 @@
 import os
 import pickle
 from metrics import Metrics
-from tasks import Task 
+from task import Task 
 
 class Dump:
     def __init__(self, task:Task, metrics: Metrics):
@@ -12,15 +12,12 @@ class Dump:
         if not path:
             raise Exception('path to Dump tasks is not defined')
         if not os.path.exists(path):
-            if os.path.isdir(path):
-                return
-            else:
-                raise Exception('{0} is not dir'.format(path))
-            try:
-                os.chmod(path)
-            except PermissionError:
-                raise Exception('access denied to {0}'.format(path))
-            self._mkdir(path)
+            if not os.path.isdir(path):
+                self._mkdir(path)
+        try:
+            os.chmod(path, 0o777)
+        except PermissionError:
+            raise Exception('access denied to {0}'.format(path))
         result_path = os.path.join(path, self._get_dump_file_name(self._task))
         title = self._task.title()
         metrics = self._metrics[title]
