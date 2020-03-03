@@ -1,8 +1,9 @@
-from exceptions import CreateEngineException, NotCompletedOutputException
+from exceptions import CreateEngineException, NotCompletedOutputException, NoTasksException
 from task import Task
 from db import create_engine, connect
 from metrics import Metrics, from_csv
 from plot import show
+from dump import Dump
 
 class Explainer:
     def __init__(self, connect_path):
@@ -37,7 +38,12 @@ class Explainer:
         '''
         if not self._metrics:
             raise NoMetricsException('Metrics is not loaded')
-
+        if len(self._tasks) == 0:
+            raise NoTasksException('Tasks is not defined')
+        for t in self._tasks:
+            metrics = self._metrics[t]
+            d = Dump(t, metrics)
+            d.save(path)
 
     def apply(self, *args, **kwargs):
         ''' applying of tasks
