@@ -25,7 +25,7 @@ class Dump:
     
     def _mkdir(self, path:str):
         try:
-            os.mkdir(path)
+            os.makedirs(path, exist_ok=True)
         except OSError as e:
             if e.errno == errno.EEXIST:
                 print('Directory {0} not created'.format(path))
