@@ -1,10 +1,11 @@
 import os
 import pickle
+import pandas as pd
 from metrics import Metrics
-from task import Task 
+from task import Task
 
 class Dump:
-    def __init__(self, task:Task, metrics: Metrics):
+    def __init__(self, task:Task, metrics: pd.DataFrame):
         self._metrics = metrics
         self._task = task
     
@@ -19,9 +20,7 @@ class Dump:
         except PermissionError:
             raise Exception('access denied to {0}'.format(path))
         result_path = os.path.join(path, self._get_dump_file_name(self._task))
-        title = self._task.title()
-        metrics = self._metrics[title]
-        data = {k:v for m in metrics}
+        data = {}
         pickle.dump(data, open(result_path, 'wb'))
     
     def _mkdir(self, path:str):
@@ -39,5 +38,5 @@ class Dump:
         '''
         parent_title = task.parent_title()
         title = task.title()
-        os.path.join(parent_title, title)
+        return os.path.join(parent_title, title)
 

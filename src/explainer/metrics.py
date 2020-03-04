@@ -37,7 +37,7 @@ class Metrics:
             data_resp[name] = df
         return frames, data_resp
     
-    def __getitem__(self, name):
+    def __getitem__(self, name) -> pd.DataFrame:
        return self._data[name]
     
     def __str__(self) -> str:
