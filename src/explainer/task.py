@@ -2,8 +2,9 @@ from typing import List
 from parse import parse_explain
 from db import explain, rows_count
 from parse import Analyzer
+from serializer import Serializer
 
-class Task:
+class Task(Serializer):
     ''' defines query as a task
     '''
     def __init__(self, parent_title, title, query, *args, **kwargs):
@@ -19,13 +20,6 @@ class Task:
     
     def parent_title(self) -> str:
         return self._parent_title
-    
-    def to_json(self):
-        '''
-        converting of the Task object into
-        JSON representation
-        '''
-        return {k: v for k, v in self.__dict__.items() if not k.startswith('_')}
 
     def __str__(self) -> str:
         return 'Title: {0}\nQuery: {1}\n Times:{2}'.format(self._title, self.query, self._times)

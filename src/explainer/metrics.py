@@ -2,6 +2,7 @@ from typing import List, Dict
 import pandas as pd
 from parse import Analyzer
 from task import Task
+from serializer import Serializer
 
 RawMetrics = List[Analyzer]
 Tasks = List[Task]
@@ -34,7 +35,6 @@ class Metrics:
             df = pd.DataFrame(result)
             df.name = name
             frames.append(df)
-            print('NAME: ', name)
             data_resp[name] = df
         return frames, data_resp
     
@@ -43,6 +43,12 @@ class Metrics:
     
     def __str__(self) -> str:
         return 'Number of tasks: {0}'.format(len(self._data))
+    
+    def to_json():
+        '''
+        return Metrics object into json representation
+        '''
+        return {}
     
     def stat(self, name) -> Dict[str, float]:
         '''
@@ -75,6 +81,13 @@ class Metrics:
         ''' return std value from results
         '''
         return self._apply_stat(name, 'std',  *args, **kwargs)
+
+
+class MetricsStore(Serializer):
+    def __init__(self, task_name, median, mean):
+        self.task_name = task_name
+        self.median = median
+        self.mean = mean
 
 
 def from_csv(path) -> pd.DataFrame:
