@@ -10,6 +10,9 @@ class Dump:
         self._task = task
     
     def save(self, path:str):
+        '''
+        saving of the dump file
+        '''
         if not path:
             raise Exception('path to Dump tasks is not defined')
         dir_path = os.path.join(path, self._task.parent_title())
