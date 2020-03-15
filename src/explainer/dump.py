@@ -12,14 +12,11 @@ class Dump:
     def save(self, path:str):
         if not path:
             raise Exception('path to Dump tasks is not defined')
-        if not os.path.exists(path):
-            if not os.path.isdir(path):
-                self._mkdir(path)
-        try:
-            os.chmod(path, 0o777)
-        except PermissionError:
-            raise Exception('access denied to {0}'.format(path))
-        result_path = os.path.join(path, self._get_dump_file_name(self._task))
+        dir_path = os.path.join(path, self._task.parent_title())
+        if not os.path.exists(dir_path):
+            if not os.path.isdir(dir_path):
+                self._mkdir(dir_path)
+        result_path = self._get_dump_file_name(dir_path, self._task)
         data = {}
         pickle.dump(data, open(result_path, 'wb'))
     
@@ -32,11 +29,9 @@ class Dump:
             else:
                 raise
     
-    def _get_dump_file_name(self, task:Task):
+    def _get_dump_file_name(self, path:str, task:Task):
         ''' return dump file name based on parent title
             and title from the task
         '''
-        parent_title = task.parent_title()
-        title = task.title()
-        return os.path.join(parent_title, title)
+        return os.path.join(path, task.title())
 
