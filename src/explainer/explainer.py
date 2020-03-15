@@ -4,6 +4,7 @@ from db import create_engine, connect
 from metrics import Metrics, from_csv
 from plot import show
 from dump import Dump
+from load import load
 
 class Explainer:
     def __init__(self, connect_path):
@@ -32,7 +33,7 @@ class Explainer:
         '''
         df = from_csv(path)
     
-    def save(self, path):
+    def save(self, path:str):
         '''
         save provides saving of the data metrics
         '''
@@ -44,6 +45,14 @@ class Explainer:
             metrics = self._metrics[t.title()]
             d = Dump(t, metrics)
             d.save(path)
+    
+    def load(self, path:str):
+        '''
+        loading of the dumped data
+        '''
+        if not path:
+            raise Exception('path is not defined')
+        load(path)
 
     def apply(self, *args, **kwargs):
         ''' applying of tasks
