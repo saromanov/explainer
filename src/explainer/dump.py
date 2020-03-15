@@ -20,7 +20,9 @@ class Dump:
             if not os.path.isdir(dir_path):
                 self._mkdir(dir_path)
         result_path = self._get_dump_file_name(dir_path, self._task)
-        data = self._task.to_json()
+        tasks = self._task.to_json()
+        metrics = self._metrics.to_json()
+        data = {**tasks, **metrics}
         pickle.dump(data, open(result_path, 'wb'))
     
     def _mkdir(self, path:str):
