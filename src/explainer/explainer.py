@@ -1,7 +1,7 @@
 from exceptions import CreateEngineException, NotCompletedOutputException, NoTasksException
 from task import Task
 from db import create_engine, connect
-from metrics import Metrics, from_csv
+from metrics import Metrics, MetricsStore, from_csv
 from plot import show
 from dump import Dump
 from load import load
@@ -11,6 +11,7 @@ class Explainer:
         self._session = connect(create_engine(connect_path))
         self._tasks = []
         self._loaded_tasks = []
+        self._metrics_store = {}
     
     def add_task(self, parent_title, title, query, *args, **kwargs):
         ''' adding new task(query)
@@ -71,5 +72,9 @@ class Explainer:
         tasks = kwargs.get('tasks') if 'tasks' in kwargs else []
         for task in tasks:
             data = m[task]
+            self._metrics_store[task] = MetricsStore(task, \
+                m.median('planning_time',task=task), \
+                m.mean('planning_time',task=task)
+                )
             if kwargs.get('show_plot'):
                 show(data['planning_time'], data['execution_time'])
