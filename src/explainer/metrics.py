@@ -34,6 +34,7 @@ class Metrics:
             df = pd.DataFrame(result)
             df.name = name
             frames.append(df)
+            print('NAME: ', name)
             data_resp[name] = df
         return frames, data_resp
     
@@ -55,7 +56,7 @@ class Metrics:
         from pandas data frame
         '''
         task = kwargs.get('task')
-        if task: 
+        if task:
             return {task: getattr(self._data[task], func)()}
     
         return {df.name: getattr(df[name], func)() for df in self._dframes}
