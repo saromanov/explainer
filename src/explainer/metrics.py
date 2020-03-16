@@ -84,10 +84,17 @@ class Metrics:
 
 
 class MetricsStore(Serializer):
-    def __init__(self, task_name, median, mean):
+    def __init__(self, task_name, median, mean, metric_names, metric:Metrics, task:Task):
         self.task_name = task_name
         self.median = median
         self.mean = mean
+        self.metrics = self._set_metrics(metric_names, metric, task)
+    
+    def _set_metrics(self, metric_names, metrics:Metrics, task:Task):
+        result = {}
+        for m in metric_names:
+            result[m] = metrics.mean(m, task=task)
+        return result
 
 
 def from_csv(path) -> pd.DataFrame:
