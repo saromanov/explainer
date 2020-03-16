@@ -5,7 +5,7 @@ from metrics import Metrics
 from task import Task
 
 class Dump:
-    def __init__(self, task:Task, metrics: pd.DataFrame):
+    def __init__(self, task:Task, metrics: MetricStore):
         self._metrics = metrics
         self._task = task
     
@@ -22,6 +22,8 @@ class Dump:
         result_path = self._get_dump_file_name(dir_path, self._task)
         tasks = self._task.to_json()
         metrics = self._metrics.to_json()
+        print(tasks)
+        print(metrics)
         data = {**tasks, **metrics}
         pickle.dump(data, open(result_path, 'wb'))
     
