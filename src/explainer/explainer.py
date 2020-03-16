@@ -7,8 +7,10 @@ from dump import Dump
 from load import load
 
 class Explainer:
-    def __init__(self, connect_path):
+    def __init__(self, connect_path, *args, **kwargs):
         self._session = connect(create_engine(connect_path))
+        self._metric_names = kwargs.get('metric_names', ['planning_time'])
+        self._method_names = kwargs.get('method_names', ['mean', 'median'])
         self._tasks = []
         self._loaded_tasks = []
         self._metrics_store = {}

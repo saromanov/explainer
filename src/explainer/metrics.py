@@ -90,10 +90,11 @@ class MetricsStore(Serializer):
         self.mean = mean
         self.metrics = self._set_metrics(metric_names, metric, task)
     
-    def _set_metrics(self, metric_names, metrics:Metrics, task:Task):
+    def _set_metrics(self, metric_names, method_names, metrics:Metrics, task:Task):
         result = {}
         for m in metric_names:
-            result[m] = metrics.mean(m, task=task)
+            for method_name in method_names:
+                result['{0}_{1}'.format(m, method_name)] = getattr(metric, method_name)(m, task=task)
         return result
 
 
