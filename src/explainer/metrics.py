@@ -44,28 +44,22 @@ class Metrics:
     def __str__(self) -> str:
         return 'Number of tasks: {0}'.format(len(self._data))
     
-    def to_json():
-        '''
-        return Metrics object into json representation
-        '''
-        return {}
-    
     def stat(self, name) -> Dict[str, float]:
         '''
         return of the basic statistics about execution
         '''
         return {'mean': self.mean(name), 'median': self.median(name)}
     
-    def _apply_stat(self, name, func, *args, **kwargs):
+    def _apply_stat(self, name, func, *args, **kwargs) -> float:
         '''
         general method for applying stats methods
         from pandas data frame
         '''
         task = kwargs.get('task')
-        if task:
-            return {task: getattr(self._data[task], func)()}
+        if not task:
+            raise Exception('task name is not defined')
     
-        return {df.name: getattr(df[name], func)() for df in self._dframes}
+        return getattr(self._data[task], func)()
     
     def median(self, name, *args, **kwargs) -> float:
         ''' return median value from results
@@ -92,7 +86,7 @@ class MetricsStore(Serializer):
         result = {}
         for m in metric_names:
             for method_name in method_names:
-                result['{0}_{1}'.format(m, method_name)] = getattr(metrics, method_name)(m, task=task)
+                result[f'{method_name}'] = getattr(metrics, method_name)(m, task=task)
         return result
     
 
