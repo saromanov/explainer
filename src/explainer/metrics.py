@@ -58,8 +58,7 @@ class Metrics:
         task = kwargs.get('task')
         if not task:
             raise Exception('task name is not defined')
-    
-        return getattr(self._data[task], func)()
+        return getattr(self._data[task][name], func)()
     
     def median(self, name, *args, **kwargs) -> float:
         ''' return median value from results
