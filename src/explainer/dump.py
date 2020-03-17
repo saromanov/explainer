@@ -1,11 +1,11 @@
 import os
 import pickle
 import pandas as pd
-from metrics import Metrics
+from metrics import Metrics, MetricsStore
 from task import Task
 
 class Dump:
-    def __init__(self, task:Task, metrics: MetricStore):
+    def __init__(self, task:Task, metrics: MetricsStore):
         self._metrics = metrics
         self._task = task
     
@@ -32,7 +32,7 @@ class Dump:
             os.makedirs(path, exist_ok=True)
         except OSError as e:
             if e.errno == errno.EEXIST:
-                print('Directory {0} not created'.format(path))
+                print(f'Directory {path} not created')
             else:
                 raise
     

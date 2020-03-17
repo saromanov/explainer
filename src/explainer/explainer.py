@@ -45,7 +45,7 @@ class Explainer:
         if len(self._tasks) == 0:
             raise NoTasksException('Tasks is not defined')
         for t in self._tasks:
-            metrics = self._metric_store[t.title()]
+            metrics = self._metrics_store[t.title()]
             d = Dump(t, metrics)
             d.save(path)
     
@@ -66,17 +66,19 @@ class Explainer:
         if len(self._tasks) == 0:
             raise NoTasksException('Tasks is not defined')
         print('Loaded tasks: ')
+        default_tasks = []
         for t in self._tasks:
             print(t.title())
+            default_tasks.append(t.title())
         m = Metrics([t.run(self._session) for t in self._tasks])
         self._metrics = m
-        print(m.median('planning_time',task='priority10'), m.std('planning_time'))
-        tasks = kwargs.get('tasks') if 'tasks' in kwargs else []
+        tasks = kwargs.get('tasks') if 'tasks' in kwargs else default_tasks
         for task in tasks:
             data = m[task]
             self._metrics_store[task] = MetricsStore(task, \
                 self._metric_names, \
                 self._method_names, \
+                m,
                 task
                 )
             if kwargs.get('show_plot'):

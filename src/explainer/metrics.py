@@ -84,7 +84,7 @@ class Metrics:
 
 
 class MetricsStore(Serializer):
-    def __init__(self, task_name, metric_names, method_names, metric:Metrics, task:Task):
+    def __init__(self, task_name, metric_names, method_names, metric:Metrics, task:Task, /):
         self.task_name = task_name
         self.metrics = self._set_metrics(metric_names, method_names, metric, task)
     
@@ -92,7 +92,7 @@ class MetricsStore(Serializer):
         result = {}
         for m in metric_names:
             for method_name in method_names:
-                result['{0}_{1}'.format(m, method_name)] = getattr(metric, method_name)(m, task=task)
+                result['{0}_{1}'.format(m, method_name)] = getattr(metrics, method_name)(m, task=task)
         return result
     
 
